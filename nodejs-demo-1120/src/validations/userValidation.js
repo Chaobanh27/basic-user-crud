@@ -8,9 +8,9 @@ const createNewUser = async (req, res, next) => {
     username: Joi.string().alphanum().min(3).max(30).required().trim().strict().messages({
       'any.required' : 'username is required',
       'string.empty': 'username can not be empty',
-      'string.max': 'Title length must be less than or equal to 30 characters long',
-      'string.min': 'Title length must be at least 3 characters long',
-      'string.trim': 'Title must not have leading or trailing whitespace'
+      'string.max': 'username  length must be less than or equal to 30 characters long',
+      'string.min': 'username  length must be at least 3 characters long',
+      'string.trim': 'username  must not have leading or trailing whitespace'
     }),
     password: Joi.string().min(8).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/).required().messages({
       'any.required' : 'password is required',
@@ -36,9 +36,9 @@ const updateUser = async (req, res, next) => {
   const correctUpdateCondition = Joi.object({
     username: Joi.string().alphanum().min(3).max(30).trim().strict().messages({
       'string.empty': 'username can not be empty',
-      'string.max': 'Title length must be less than or equal to 30 characters long',
-      'string.min': 'Title length must be at least 3 characters long',
-      'string.trim': 'Title must not have leading or trailing whitespace'
+      'string.max': 'username  length must be less than or equal to 30 characters long',
+      'string.min': 'username  length must be at least 3 characters long',
+      'string.trim': 'username  must not have leading or trailing whitespace'
     }),
     _destroy: Joi.boolean().strict()
   })

@@ -25,7 +25,7 @@ function UserDetail() {
       return (
         <>
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="https://placehold.co/600x400" />
+            <Card.Img variant="top" src="https://i.pravatar.cc/1000" />
             <Card.Body>
               <Card.Title>
                 User Info

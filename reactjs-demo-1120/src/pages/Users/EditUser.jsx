@@ -5,11 +5,13 @@ import { useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { Container } from 'react-bootstrap'
+import RenderError from '../../utils/RenderError'
 
 function EditUser() {
   const [input, setInput] = useState({
     username: ''
   })
+  const [error, setError] = useState({})
   //console.log(input)
 
   let params = useParams()
@@ -38,10 +40,27 @@ function EditUser() {
   const handleSubmit = (e) => {
     e.preventDefault()
     let flag = true
+    let errorsSubmit = {}
+    let whiteSpaceRegex = /^\S.*\S$/
+    let usernameRegex = /^[a-zA-Z0-9]+$/
     if (input.username === '') {
+      errorsSubmit.username = 'username is required'
+      flag = false
+    }
+    else if (!usernameRegex.test(input.username)) {
+      errorsSubmit.username = 'username must only contain alpha-numeric characters'
+      flag = false
+    }
+    else if (input.username.length < 3 || input.username.length > 30) {
+      errorsSubmit.username = 'username must be between 3 to 30 characters long'
+      flag = false
+    }
+    else if (!whiteSpaceRegex.test(input.username)) {
+      errorsSubmit.username = 'username must not have leading or trailing whitespace'
       flag = false
     }
     else {
+      errorsSubmit.username = ''
       flag = true
     }
 
@@ -54,6 +73,9 @@ function EditUser() {
         .catch((error) => {
           console.log(error)
         })
+    }
+    else {
+      setError(errorsSubmit)
     }
   }
 
@@ -69,6 +91,7 @@ function EditUser() {
             <Form.Label>Username</Form.Label>
             <Form.Control value={input.username} name='username' type="text" onChange={handleChange} />
           </Form.Group>
+          <RenderError errors = {error} />
           <Button variant="primary" type="submit">
         Submit
           </Button>
